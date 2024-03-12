@@ -1,5 +1,13 @@
-<h1>タスクの削除</h1>
+{% extends 'todo_sns/layout.html' %}
+
+{% block title %}タスクの削除{% endblock %}
+
+{% block header %}
+{% endblock %}
+
+{% block content %}
 <form action="" method="POST">{% csrf_token %}
     <p>{{task}}</p>
     <input type="submit" value="delete">
 </form>
+{% endblock %}
