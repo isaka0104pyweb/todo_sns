@@ -1,6 +1,15 @@
+{% extends 'todo_sns/layout.html' %}
+
+{% block title %}Todo_form{% endblock %}
+
+{% block header %}
+{% endblock %}
+
+{% block content %}
 <form action="" method="POST">{% csrf_token %}
     <table>
         {{ form.as_table }}
     </table>
     <input type="submit" value="送信">
 </form>
+{% endblock %}
