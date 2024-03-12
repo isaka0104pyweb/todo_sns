@@ -1,3 +1,62 @@
+{% extends 'todo_sns/layout.html' %}
+
+{% block title %}世代別のtodoをそれぞれ作りたい{% endblock %}
+
+{% block header %}
+<h1 class="display-4 text-primary">世代別のtodoをそれぞれ作りたい</h1>
+<p class="caption">※Todoを作成します。</p>
+<p>ここにタイムバケットの概要や説明を記述します。</p>
+<p>新規登録やログインのリンクもここに配置することができます。</p>
+
+<h1>Todo List</h1>
+<p><a href="{% url 'create' %}">新規作成</a></p>
+
+    {% comment %} <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">作成</button>
+    </form> {% endcomment %}
+
+{% endblock %}
+
+{% block content %}
+
+        <table>
+            <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">title</th>
+                    <th scope="col">deadline</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+<tbody>
+            {% for task in tasks %}
+                <tr>
+                    <td>
+    <select name="task_status_{{ task.pk }}">
+        <option value="未対応" {% if task.status == "未対応" %}selected{% endif %}>未対応</option>
+        <option value="対応済み" {% if task.status == "対応済み" %}selected{% endif %}>対応済み</option>
+    </select>
+</td>
+                    <td>{{ task.title }}</td>
+                    <td>{{ task.deadline }}</td>
+                    <td><a href="{% url 'detail' task.pk %}">詳細</a></td>
+                    <td><a href="{% url 'update' task.pk %}">編集</a></td>
+                    <td><a href="{% url 'delete' task.pk %}">削除</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+
+        </table>
+
+</table>
+{% endblock %}
+
+
+{% comment %} 
 {% load static %}
 <!DOCTYPE html>
 <html lang="ja">
@@ -20,7 +79,7 @@
         <div class="container">
             <div class="row">
                 <div class="col">
-                    <a href="#" class="text-light">トップ</a>
+                    <a href="" class="text-light">トップ</a>
                     <a href="#" class="text-light mx-2">年代別todo一覧</a>
                     <a href="#" class="text-light mx-2">投稿一覧</a>
                     <a href="#" class="text-light mx-2">お問い合わせ</a>
@@ -45,13 +104,18 @@
         <table>
             <thead>
                 <tr>
+                    <th scope="col"></th>
                     <th scope="col">title</th>
                     <th scope="col">deadline</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
             {% for task in tasks %}
                 <tr>
+                    <td><input type="checkbox" name="selected_tasks" value="{{ task.pk }}"></td>
                     <td>{{ task.title }}</td>
                     <td>{{ task.deadline }}</td>
                     <td><a href="{% url 'detail' task.pk %}">詳細</a></td>
@@ -74,8 +138,8 @@
         <div class="container">
             <div class="row">
                 <div class="col">
-                    <a href="#" class="text-light">トップ</a>
-                    <a href="#" class="text-light mx-2">年年代別todo一覧</a>
+                    <a href="" class="text-light">トップ</a>
+                    <a href="#" class="text-light mx-2">年代別todo一覧</a>
                     <a href="#" class="text-light mx-2">投稿一覧</a>
                     <a href="#" class="text-light mx-2">お問い合わせ</a>
                 </div>
@@ -85,7 +149,7 @@
                 </div>
             </div>
         </div>
-    </footer>
+    </footer> {% endcomment %}
 
 
     <!-- Bootstrap JS CDN -->
@@ -95,148 +159,3 @@
 
 </body>
 </html>
-
-
-
-
-
-{% comment %} <!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>タイムバケット</title>
-    <!-- Bootstrap CSS CDN -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        /* 追加のスタイルシートはここに記述 */
-    </style>
-</head>
-<body>
-    <!-- ヘッダー -->
-    <header class="bg-dark text-light py-3">
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <a href="#" class="text-light">トップ</a>
-                    <a href="#" class="text-light mx-2">年代一覧</a>
-                    <a href="#" class="text-light mx-2">お知らせ</a>
-                    <a href="#" class="text-light mx-2">お問い合わせ</a>
-                </div>
-                <div class="col text-right">
-                    <a href="#" class="text-light mx-2">新規登録</a>
-                    <a href="#" class="text-light">ログイン</a>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <!-- メインコンテンツ -->
-    <main class="container my-5">
-        <h1>タイムバケットとは</h1>
-        <p>タイムバケットの概要をここに記述します。</p>
-
-        <!-- 新規登録とログインボタン -->
-        <div class="mt-4">
-            <a href="#" class="btn btn-primary mr-2">新規登録</a>
-            <a href="#" class="btn btn-secondary">ログイン</a>
-        </div>
-
-        <!-- 通知 -->
-        <div class="alert alert-info mt-4">
-            ここに通知の内容を表示します。
-        </div>
-    </main>
-
-    <!-- フッター -->
-    <footer class="bg-dark text-light py-3 mt-5">
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <a href="#" class="text-light">トップ</a>
-                    <a href="#" class="text-light mx-2">年代一覧</a>
-                    <a href="#" class="text-light mx-2">お知らせ</a>
-                    <a href="#" class="text-light mx-2">お問い合わせ</a>
-                </div>
-                <div class="col text-right">
-                    <a href="#" class="text-light mx-2">新規登録</a>
-                    <a href="#" class="text-light">ログイン</a>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Bootstrap JS CDN -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
-</html>
- {% endcomment %}
-
-
-
-
-{% comment %} <h1>Todo List</h1>
-
-<p><a href="{% url 'create' %}">新規作成</a></p>
-
-<table>
-    <thead>
-        <tr>
-        <th scope="col">title</th>
-        <th scope="col">deadline</th>
-        </tr>
-    </thead>
-    <tbody>
-    {% for task in tasks %}
-    <tr>
-        <td>{{ task.title }}</td>
-        <td>{{ task.deadline }}</td>
-        <td><a href="{% url 'detail' task.pk %}">詳細</a></td>
-        <td><a href="{% url 'update' task.pk %}">編集</a></td>
-        <td><a href="{% url 'delete' task.pk %}">削除</a></td>
-    </tr>
-    {% endfor %}
-    </tbody>
-</table> 
- {% endcomment %}
-
-
-
-
-
-
-
-{% comment %} <h1>Todo List</h1>
-
-<p><a href="{% url 'create' %}">新規作成</a></p>
-
-<form action="{% url 'delete' %}" method="post">
-    {% csrf_token %}
-    <table>
-        <thead>
-            <tr>
-                <th scope="col">選択</th>
-                <th scope="col">タイトル</th>
-                <th scope="col">締め切り</th>
-                <th scope="col">詳細</th>
-                <th scope="col">編集</th>
-                <th scope="col">削除</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for task in tasks %}
-            <tr>
-                <td><input type="checkbox" name="selected_tasks" value="{{ task.pk }}"></td>
-                <td>{{ task.title }}</td>
-                <td>{{ task.deadline }}</td>
-                <td><a href="{% url 'detail' task.pk %}">詳細</a></td>
-                <td><a href="{% url 'update' task.pk %}">編集</a></td>
-                <td><a href="{% url 'delete' task.pk %}">削除</a></td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    <button type="submit">選択したタスクを削除</button>
-</form> {% endcomment %}
