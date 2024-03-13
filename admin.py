@@ -1,13 +1,9 @@
 from django.contrib import admin
-from .models import Todo
+from .models import Todo,Message,Good
 
 
 admin.site.register(Todo)
 
 
-
-
-# from .models import Message,Good
-
-# admin.site.register(Message)
-# admin.site.register(Good)
+admin.site.register(Message)
+admin.site.register(Good)
