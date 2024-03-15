@@ -1,0 +1,53 @@
+{% extends 'todo_sns/layout.html' %}
+
+{% block title %}タイムバケット{% endblock %}
+
+{% block header %}
+<h1 class="display-4 text-primary">ぼだ20</h1>
+<p class="caption">ｓｓｓｓ</p>
+<p>２２２２</p>
+<p>００００</p>
+
+<h1>Todo List</h1>
+<p><a href="{% url 'create' %}">新規作成</a></p>
+
+
+{% endblock %}
+
+{% block content %}
+
+        <table>
+            <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">title</th>
+
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+<tbody>
+            {% for task in contents %}
+                <tr>
+                    <td>
+    <select name="task_status_{{ task.pk }}">
+        <option value="未対応" {% if not task.is_done  %}selected{% endif %}></option>
+        <option value="対応済み" {% if task.is_done %}selected{% endif %}>達成済み</option>
+    </select>
+</td>
+                    <td>{{ task.title }}</td>
+
+                    <td><a href="{% url 'detail' task.pk %}">詳細</a></td>
+                    <td><a href="{% url 'update' task.pk %}">編集</a></td>
+                    <td><a href="{% url 'delete' task.pk %}">削除</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+
+        </table>
+
+</table>
+
+{% endblock %}
+
