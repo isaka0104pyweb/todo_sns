@@ -1,0 +1,67 @@
+{% extends 'todo_sns/layout.html' %}
+
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Post</title>
+</head>
+<body>
+    <h1>Edit Post</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Update</button>
+    </form>
+</body>
+</html> {% endcomment %}
+
+{% comment %} <h1>Edit Post</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Update</button>
+    </form> {% endcomment %}
+
+
+{% block title %}Edit_Post{% endblock %}
+
+{% block header %}
+<h1 class="display-4 text-primary">Edit_Post</h1>
+<p class="caption">※メッセージを編集します。</p>
+{% endblock %}
+
+{% block content %}
+  <table class="table">
+    <tr>
+      <th>data</th>
+    </tr>
+  {% for item in data %}
+    <tr>
+      <td>{{item}}</td>
+      <td><a href="{% url 'edit' item.id %}">Edit</a></td>
+    <tr>
+  {% endfor %}
+  </table>
+
+{% comment %} <form method="post">
+  {% csrf_token %}
+  <textarea name="content" rows="4" cols="50">{{ post.content }}</textarea>
+  <button type="submit">Update</button>
+</form> {% endcomment %}
+
+{% comment %} <table class="table mt-3">
+        <tr><th>Messages</th></tr>
+{% for item in contents %}
+    <tr><td>
+    <p class="fs-5 my-0">
+        {{item.content}}</p>
+    <p class="text-end my-0">({{item.pub_date}})</p>
+    <p class="text-end my-0 text-info">
+        good={{item.good_count}}
+        </p>
+    
+    </td></tr>
+    {% endfor %}
+</table> {% endcomment %}
+{% endblock %}
