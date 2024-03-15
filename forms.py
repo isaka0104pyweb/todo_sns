@@ -23,17 +23,16 @@ class PostForm(forms.Form):
 
 
 class TodoForm(forms.ModelForm):
+    gen=forms.ChoiceField(
+        choices=[
+                ("20代","20代"),
+                ("30代","30代"),
+                ("40代","40代"),
+                ("50代","50代"),
+            ])
     class Meta:
         model = Todo
-        fields = ['title', 'description','deadline']
+        fields = ['title', 'description','deadline',"gen"]
         widgets = {
-            'deadline': forms.DateInput(attrs={'type': 'date'}),
-        }
+            'deadline': forms.DateInput(attrs={'type': 'date'}),}
 
-# class ContactForm(forms.Form):
-#     name = forms.CharField(label='お名前', max_length=100)
-#     email = forms.EmailField(label='メールアドレス')
-#     message = forms.CharField(label='お問い合わせ内容', widget=forms.Textarea)
-
-
-# 'is_done',,'owner'
