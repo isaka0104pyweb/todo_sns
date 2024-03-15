@@ -13,8 +13,17 @@ from django.contrib.auth.decorators import login_required
 from .models import Todo, Message,Good
 
 from .forms import MessageForm,TodoForm
+# ,ContactForm
 
 
+
+# class TodoTwenty(ListView):
+    
+#     def post(self, request):
+#         selected_tasks = request.POST.getlist('selected_tasks')
+#         request.session['selected_tasks'] = selected_tasks
+#         return redirect('td_tw')
+    
 
 class TodoList(ListView):
     model = Todo
@@ -42,10 +51,12 @@ class TodoUpdate(UpdateView):
     form_class=TodoForm
     success_url = reverse_lazy("list")
 
+
 class TodoDelete(DeleteView):
     model = Todo
     context_object_name = "task"
     success_url = reverse_lazy("list")
+
 
 
 def todo_list(request):
@@ -59,7 +70,33 @@ def todo_list(request):
     
     return render(request, 'todo_list.html', {'tasks': tasks, 'selected_tasks': selected_tasks})
 
+# def TodoTwenty(request):
+#     tasks = Todo.objects.all()
+#     selected_tasks = request.session.get('selected_tasks', [])
+    
+#     if request.method == 'POST':
+#         selected_tasks = request.POST.getlist('selected_tasks')
+#         request.session['selected_tasks'] = selected_tasks
+#         return redirect('td_tw')
+    
+#     return render(request, 'td_tw.html', {'tasks': tasks, 'selected_tasks': selected_tasks})
 
+
+# def contact(request):
+#     if request.method == 'POST':
+#         form = ContactForm(request.POST)
+#         if form.is_valid():
+#             name = form.cleaned_data['name']
+#             email = form.cleaned_data['email']
+#             message = form.cleaned_data['message']
+            
+#             # ここでフォームデータを処理するためのコードを追加
+            
+#             return render(request, 'contact_success.html')
+#     else:
+#         form = ContactForm()
+    
+#     return render(request, 'contact_form.html', {'form': form})
 
 # indexのビュー関数
 @login_required(login_url='/admin/login/')
