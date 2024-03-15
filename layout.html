@@ -1,0 +1,90 @@
+{% load static %}
+<!doctype html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TimeBucket</title>
+
+<!-- CSS only -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.css" 
+    rel="stylesheet" crossorigin="anonymous">
+  <style>
+    .navbar {
+      position: relative;
+      z-index: 1;
+    }
+    .container {
+      position: relative;
+      z-index: 2;
+    }
+        /* 追加のスタイルシートはここに記述 */
+  </style>
+{% comment %} </head>
+
+<head> {% endcomment %}
+    <meta charset="utf-8">
+    <title>{{% block title %}{% endblock %}</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.css" 
+    rel="stylesheet" crossorigin="anonymous">
+</head>
+<body>
+    <header class="bg-dark text-light py-3">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <a href="http://127.0.0.1:8000/todo_sns/" class="text-light">トップ</a>
+                    <a href="" class="text-light mx-2">世代別todo一覧</a>
+                    <a href="http://127.0.0.1:8000/todo_sns/post/" class="text-light mx-2">投稿(詳細)一覧</a>
+                    <a href="http://127.0.0.1:8000/todo_sns/sns" class="text-light mx-2">sns</a>
+                    <a href="http://127.0.0.1:8000/todo_sns/goods" class="text-light mx-2">興味あるかも</a>
+                    {% comment %} <a href="contact" class="text-light mx-2">お問い合わせ</a> {% endcomment %}
+                </div>
+                {% comment %} <div class="col text-right">
+                    <a href="" class="text-light mx-2">新規登録</a>
+                    <a href="" class="text-light">ログイン</a>
+                </div>  {% endcomment %}
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div>
+            {% block  header %}
+            {% endblock %}
+        </div>
+        <div class="content">
+            {% block content %}
+            {% endblock %}
+        </div>
+
+
+{% comment %} <!-- 通知 -->
+    <section>
+        <h2>通知</h2>
+        <p>ここに通知や重要なメッセージを表示します。</p>
+    </section> {% endcomment %}
+
+    <!-- フッター -->
+    <footer class="bg-dark text-light py-3 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <a href="http://127.0.0.1:8000/todo_sns/" class="text-light">トップ</a>
+                    <a href="" class="text-light mx-2">世代別todo一覧</a>
+                    <a href="http://127.0.0.1:8000/todo_sns/post/" class="text-light mx-2">投稿(詳細)一覧</a>
+                    <a href="http://127.0.0.1:8000/todo_sns/sns" class="text-light mx-2">sns</a>
+                    <a href="http://127.0.0.1:8000/todo_sns/goods" class="text-light mx-2">興味あるかも</a>
+                    {% comment %} <a href="contact" class="text-light mx-2">お問い合わせ</a> {% endcomment %}
+                </div>
+                {% comment %} <div class="col text-right">
+                    <a href="" class="text-light mx-2">新規登録</a>
+                    <a href="" class="text-light">ログイン</a>
+                </div>  {% endcomment %}
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
