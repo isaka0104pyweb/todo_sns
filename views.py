@@ -13,17 +13,7 @@ from django.contrib.auth.decorators import login_required
 from .models import Todo, Message,Good
 
 from .forms import MessageForm,TodoForm
-# ,ContactForm
 
-
-
-# class TodoTwenty(ListView):
-    
-#     def post(self, request):
-#         selected_tasks = request.POST.getlist('selected_tasks')
-#         request.session['selected_tasks'] = selected_tasks
-#         return redirect('td_tw')
-    
 
 class TodoList(ListView):
     model = Todo
@@ -70,33 +60,27 @@ def todo_list(request):
     
     return render(request, 'todo_list.html', {'tasks': tasks, 'selected_tasks': selected_tasks})
 
-# def TodoTwenty(request):
-#     tasks = Todo.objects.all()
-#     selected_tasks = request.session.get('selected_tasks', [])
-    
-#     if request.method == 'POST':
-#         selected_tasks = request.POST.getlist('selected_tasks')
-#         request.session['selected_tasks'] = selected_tasks
-#         return redirect('td_tw')
-    
-#     return render(request, 'td_tw.html', {'tasks': tasks, 'selected_tasks': selected_tasks})
 
 
-# def contact(request):
-#     if request.method == 'POST':
-#         form = ContactForm(request.POST)
-#         if form.is_valid():
-#             name = form.cleaned_data['name']
-#             email = form.cleaned_data['email']
-#             message = form.cleaned_data['message']
-            
-#             # ここでフォームデータを処理するためのコードを追加
-            
-#             return render(request, 'contact_success.html')
-#     else:
-#         form = ContactForm()
-    
-#     return render(request, 'contact_form.html', {'form': form})
+@login_required(login_url='/admin/login/')
+def index20(request, page=1):
+    print(request.session.keys())
+    max = 10 #ページ当たりの表示数
+    form = MessageForm() #PostFormから変更
+    msgs = Todo.objects.filter(gen="20代")
+    # ページネーションで指定ページを取得
+    paginate = Paginator(msgs, max)
+    page_items = paginate.get_page(page)
+    for i in page_items:
+        print(page_items)
+    params = {
+        'login_user':request.user,
+        'form': form,
+        'contents':page_items,
+    }
+    return render(request, 'todo_sns/g20.html', params)
+
+
 
 # indexのビュー関数
 @login_required(login_url='/admin/login/')
