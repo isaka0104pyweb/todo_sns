@@ -22,7 +22,7 @@ urlpatterns = [
     path('find/<int:num>', views.find, name='find'),
     # path('contact', views.contact, name='contact'),
 
-
+    path('g20', views.index20, name='g20'),
 
 ]
 
