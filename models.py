@@ -9,6 +9,7 @@ class Todo(models.Model):
     deadline = models.DateField("締切", auto_now=False, auto_now_add=False)
     owner = models.ForeignKey(User, on_delete=models.CASCADE, \
                               related_name='todo_owner',default=1)
+    gen = models.CharField(max_length=100,default = "20代")
 
 
     def __str__(self):
